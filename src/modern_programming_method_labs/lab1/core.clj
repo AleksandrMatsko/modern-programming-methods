@@ -1,7 +1,7 @@
 (ns modern-programming-method-labs.lab1.core)
 
 (defn add-char-to-word
-  "Add single character to word if it doesn't end on the same char"
+  "Add single character to word if it doesn't end on the same char and has len < n"
   [word
    char
    n]
@@ -13,6 +13,7 @@
       )))
 
 (defn inc-word
+  "Generate from given word new words by adding symbol to the end using function add-char-to-word"
   [word
    n
    alphabet
@@ -26,6 +27,7 @@
         (inc-word word n new-alphabet (into ready-words (list new-word)))))))
 
 (defn gen-words
+  "Generate new words all of len n by applying inc-word to each element in words"
   [alphabet
    n
    words
