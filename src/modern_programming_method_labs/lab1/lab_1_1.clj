@@ -37,7 +37,7 @@
     (list)
     (if (= n 1)
       alphabet
-      (if (= (count alphabet) 1)                            ; if alphabet contains only 1 symbol we can't construct words of len > 1
+      (if (<= (count alphabet) 1)                            ; if alphabet contains only 1 symbol we can't construct words of len > 1
         (list)
         (gen-words alphabet n alphabet (list)))
       ))

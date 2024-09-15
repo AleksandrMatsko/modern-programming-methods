@@ -11,6 +11,10 @@
   (testing "Test gen-permutations with n = 0"
     (is (empty? (gen-permutations alphabet 0)))))
 
+(deftest empty-alphabet-test
+  (testing "Test gen-permutations with n > 0 and empty alphabet"
+    (is (empty? (gen-permutations (list) 2)))))
+
 (deftest one-symbol-alphabet-test
   (testing "Test gen-permutations with alphabet of 1 symbol"
     (is (empty? (gen-permutations one-sym-alphabet 2)))
