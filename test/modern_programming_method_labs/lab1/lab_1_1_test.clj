@@ -1,6 +1,6 @@
 (ns modern-programming-method-labs.lab1.lab_1_1_test
   (:require [clojure.test :refer :all]
-            [modern-programming-method-labs.lab1.core :refer :all]
+            [modern-programming-method-labs.lab1.lab-1-1 :refer :all]
             [modern-programming-method-labs.lab1.core-test :refer :all]))
 
 (deftest negative-n-test
