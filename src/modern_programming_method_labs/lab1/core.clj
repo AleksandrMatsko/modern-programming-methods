@@ -24,7 +24,7 @@
           new-alphabet (rest alphabet)]
       (if (nil? new-word)
         (inc-word word n new-alphabet ready-words)
-        (inc-word word n new-alphabet (into ready-words (list new-word)))))))
+        (inc-word word n new-alphabet (concat ready-words (list new-word)))))))
 
 (defn gen-words
   "Generate new words all of len n by applying inc-word to each element in words"
@@ -37,7 +37,7 @@
       (gen-words alphabet n ready-words (list))             ; if we already generated words of previous len, start generating words with len+1
       ready-words)
     (let [new-words (inc-word (first words) n alphabet (list))]
-      (gen-words alphabet n (rest words) (into ready-words new-words)))))
+      (gen-words alphabet n (rest words) (concat ready-words new-words)))))
 
 (defn gen-permutations
   "Generate permutations with length n, consisted of symbols from alphabet
@@ -48,7 +48,10 @@
     (list)
     (if (= n 1)
       alphabet
-      (gen-words alphabet n alphabet (list))))
+      (if (= (count alphabet) 1)                            ; if alphabet contains only 1 symbol we can't construct words of len > 1
+        (list)
+        (gen-words alphabet n alphabet (list)))
+      ))
   )
 
-(println (gen-permutations (list "a" "b" "c") 4))
+(println (gen-permutations (list "a" "b" "c" "d") 3))
