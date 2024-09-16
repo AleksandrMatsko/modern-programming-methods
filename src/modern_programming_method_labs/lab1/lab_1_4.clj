@@ -3,6 +3,7 @@
             [modern-programming-method-labs.lab1.lab-1-3 :refer :all]))
 
 (defn add-symbol-to-words
+  "Appends sym to each word"
   [words
    sym
    n]
@@ -18,6 +19,7 @@
   )
 
 (defn inc-words
+  "Each word from words will be appended by each symbol form alphabet."
   [words
    alphabet
    n]
@@ -29,6 +31,7 @@
     alphabet))
 
 (defn repeat-alphabet
+  "Repeats given list n times."
   [alphabet
    n]
   (my-map-list
@@ -37,6 +40,8 @@
 
 
 (defn gen-permutations
+  "Generate permutations with length n, consisted of symbols from alphabet.
+  Each permutation doesn't have 2 same symbols in a row."
   [alphabet
    n]
   (reduce
