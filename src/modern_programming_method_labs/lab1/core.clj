@@ -7,7 +7,10 @@
    n]
   (if (>= (count (str word)) n)
     nil
-    (if (= (str (last word))  char)
-      nil
-      (str word char)
-      )))
+    (if (empty? word)
+      (str char)
+      (if (= (str (last word))  char)
+        nil
+        (str word char)
+        ))
+    ))
