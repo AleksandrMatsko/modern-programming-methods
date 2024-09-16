@@ -1,5 +1,6 @@
 (ns modern-programming-method-labs.lab1.lab-1-4
-  (:require [modern-programming-method-labs.lab1.core :refer :all]))
+  (:require [modern-programming-method-labs.lab1.core :refer :all]
+            [modern-programming-method-labs.lab1.lab-1-3 :refer :all]))
 
 (defn add-symbol-to-words
   [words
@@ -7,9 +8,11 @@
    n]
   (if (empty? words)
     (list sym)
-    (remove
-      nil?
-      (map
+    (my-filter-list
+      (fn [val]
+        (not (nil? val))
+        )
+      (my-map-list
         (fn [word] (add-char-to-word word sym n))
         words)))
   )
@@ -28,7 +31,7 @@
 (defn repeat-alphabet
   [alphabet
    n]
-  (map
+  (my-map-list
     (fn [val] (seq alphabet))
     (take n (range))))
 
