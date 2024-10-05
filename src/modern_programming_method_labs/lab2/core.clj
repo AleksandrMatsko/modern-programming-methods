@@ -1,5 +1,5 @@
 (ns modern-programming-method-labs.lab2.core
-  (:require [clojure.math :refer :all] ))
+  (:require [clojure.math :as math]))
 
 (defn polynomial
   "Construct polynomial function with given coefficients.
@@ -11,13 +11,8 @@
       +
       (map-indexed
         (fn [idx item]
-          (* item (pow x idx)))
+          (* item (math/pow x idx)))
         coefficients))))
-
-(defn long-func
-  [x]
-  (Thread/sleep 1)
-  x)
 
 (defn trapezoid-numerator
   [f a b]
@@ -25,41 +20,35 @@
 
 (defn trapezoid
   [f a b]
-  (*
-    (trapezoid-numerator f a b)
-    (- b a)
-    0.5))
+  (let [res (*
+              (trapezoid-numerator f a b)
+              (- b a)
+              0.5)]
+    res)
+  )
 
 (defn indexed-trapezoid
   [f h i]
   (trapezoid f (* h i) (* h (inc i))))
 
 (defn simple-integral
-  [f
-   h]
+  "Returns function, which calculates integral for 'f' from 0 to x
+  by using trapezoid method with fixed step h"
+  [f h]
   (fn [x]
-    (*
-      h
-      (reduce
-        +
-        (trapezoid f (* h (int (/ x h))) x)
-        (map
-          (fn
-            [val]
-            (+ (f val) (f (+ val h))))
-          (range 0 x h)))
-      0.5)))
+    (let [n (math/round (/ x h))]
+      (+
+        (*
+          (reduce
+            +
+            0
+            (map
+              (fn
+                [val]
+                (trapezoid-numerator f val (+ val h)))
+              (range 0 x h)))
+          h
+          0.5)
+        (trapezoid f (* n h) x)))
+    ))
 
-(defn measure-integrals
-  [integrals vals]
-  (doall
-    (map-indexed
-      (fn [idx integral-f]
-        (println "\nIntegral: " (inc idx))
-        (doall (map
-                 (fn [val]
-                   (time (integral-f val))
-                   )
-                 vals))
-        )
-      integrals)))
