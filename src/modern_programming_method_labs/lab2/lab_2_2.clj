@@ -2,20 +2,34 @@
   (:require [modern-programming-method-labs.lab2.core :refer :all]
             [clojure.math :as math]))
 
+(defrecord integral-iter-data
+  [prev-integral-val
+   index])
+
+(defn new-integral-from-prev
+  [f h]
+  (fn [integral-iter-data-example]
+    (let [idx (:index integral-iter-data-example)]
+      (integral-iter-data.
+        (+
+          (:prev-integral-val integral-iter-data-example)
+          (trapezoid
+            f
+            (* h (dec idx)) (* h idx)))
+        (inc idx)))
+    ))
+
 (defn integral-inf
   "Returns function, which calculates integral for 'f' from 0 to x
   by using trapezoid method with fixed step h. Optimized by using lazy sequences"
   [f h]
   (let
-    [seq (map
-           first
+    [iter-f (new-integral-from-prev f h)
+     seq (map
+           :prev-integral-val
            (iterate
-             (fn [[prev-integral-val index]]
-               [(+
-                  prev-integral-val
-                  (trapezoid f (* h (- index 1)) (* h index)))
-                (inc index)])
-             [0 1]))]
+             iter-f
+             (integral-iter-data. 0 1)))]
     (fn [x]
       (let [n (math/round (/ x h))]
         (+
