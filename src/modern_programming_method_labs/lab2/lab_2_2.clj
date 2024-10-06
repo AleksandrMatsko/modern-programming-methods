@@ -15,7 +15,8 @@
           (:prev-integral-val integral-iter-data-example)
           (trapezoid
             f
-            (* h (dec idx)) (* h idx)))
+            (* h (dec idx))
+            (* h idx)))
         (inc idx)))
     ))
 
