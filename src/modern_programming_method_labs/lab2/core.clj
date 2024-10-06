@@ -20,11 +20,10 @@
 
 (defn trapezoid
   [f a b]
-  (let [res (*
-              (trapezoid-numerator f a b)
-              (- b a)
-              0.5)]
-    res)
+  (*
+    (trapezoid-numerator f a b)
+    (- b a)
+    0.5)
   )
 
 (defn indexed-trapezoid
