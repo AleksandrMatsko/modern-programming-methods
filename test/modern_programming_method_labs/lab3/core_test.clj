@@ -1,6 +1,7 @@
 (ns modern-programming-method-labs.lab3.core-test
   (:require [clojure.test :refer :all]
-            [modern-programming-method-labs.lab3.core :refer :all]))
+            [modern-programming-method-labs.lab3.core :refer :all]
+            [modern-programming-method-labs.lab3.lab-3-1 :refer :all]))
 
 (deftest get-split-coll-f-test
   (testing "collection is divided correctly by returned func when collection size is divisible by num-threads"
@@ -45,5 +46,27 @@
             (range 63 83 1)
             (range 83 103 1)
             )))
+    )
+  )
+
+(deftest filters-benchmark
+  (let [coll (take 100 (range))]
+    (println "Simple filter")
+    (time (->>
+            (filter heavy-even? coll)
+            (doall)))
+    (println "Thread filter")
+    (let [threads-counts (range 1 11 1)]
+      (->>
+        (map
+          (fn [thread-count]
+            (println "with" thread-count "threads")
+            (time (->>
+                    (thread-filter heavy-even? thread-count coll)
+                    (doall)))
+            )
+          threads-counts)
+        (doall)
+        ))
     )
   )
