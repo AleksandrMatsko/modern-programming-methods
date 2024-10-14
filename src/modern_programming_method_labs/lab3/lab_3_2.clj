@@ -9,7 +9,6 @@
       coll
       (lazy-thread-filter cond? thread-count take-count (drop take-count coll)))))
 
-(println (lazy-thread-filter odd? 5 17 (range 0 100 1)))
 
 (defn printable-even?
   [x]
@@ -18,8 +17,10 @@
     nil)
   (even? x))
 
-(defn -main
-  [& args]
-  (->>
-    (lazy-thread-filter printable-even? 5 17 (iterate inc 1))
-    (doall)))
+;(defn -main
+;  [& args]
+;  (->>
+;    (lazy-thread-filter printable-even? 5 17 (iterate inc 1))
+;    (take 10)
+;    (println))
+;  (shutdown-agents))

@@ -11,4 +11,10 @@
                      (doall)))))
     (mapcat deref)))
 
-(println (thread-filter odd? 5 (range 0 100 1)))
+(defn -main
+  [& args]
+  (->>
+    (thread-filter odd? 5 (range 0 100 1))
+    (println))
+  (shutdown-agents)
+  )
