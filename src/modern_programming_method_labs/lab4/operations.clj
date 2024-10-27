@@ -188,6 +188,13 @@
        (expr-to-str rules-map (second (args expr)))
        ")"))
 
+(def expr-constructors
+  (hash-map
+    ::not logic-not
+    ::or logic-or
+    ::and logic-and
+    ::impl logic-impl))
+
 (def expr-to-string-rules
   "Map of rules for converting expression to string
   Example {::constant constant-to-str}, there ::constant is the type of expression and
