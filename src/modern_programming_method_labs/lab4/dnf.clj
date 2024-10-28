@@ -91,7 +91,7 @@
                                 disjunction (first disjunction-exprs)
                                 ; other disjunctions goes back to huge conjunction
                                 ; example:
-                                ; if expr = (a || b || c) && (d || e || f) || g
+                                ; if expr = (a || b || c) && (d || e || f) && g
                                 ; disjunction = (a || b || c)
                                 ; huge-conjunction = (g && (d || e || f))
                                 huge-conjunction (apply logic-and (concat
