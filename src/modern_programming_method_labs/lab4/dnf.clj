@@ -40,6 +40,7 @@
         (convert-logic-op (second-arg expr))))))
 
 (defn convert-rules
+  "Creates default converting rules with given constructors"
   [constructors]
   (list
     (convert-implications constructors)))
@@ -110,7 +111,8 @@
   )
 
 (defn combine-same-args
-  "Combine arguments of the same type in one operation"
+  "Combine arguments of the same type in one operation
+  Example: a && (b && (c || (d && e))) results in (a, b, (c || (d && e)))"
   [expr]
   (if (or (constant? expr) (variable? expr))
     (list expr)
@@ -199,7 +201,7 @@
 (defn print-expr
   [expr]
   (println (expr-to-str
-             expr-to-string-rules
+             expr-to-str-rules
              expr))
   expr
   )

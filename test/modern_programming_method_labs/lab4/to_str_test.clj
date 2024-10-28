@@ -24,7 +24,7 @@
 (deftest test-expr-to-str
   (testing "x || 1 || y"
     (is (= (expr-to-str
-             expr-to-string-rules
+             expr-to-str-rules
              (logic-or
                (variable :x)
                (constant 1)
@@ -33,7 +33,7 @@
     )
   (testing "x && 1 && y"
     (is (= (expr-to-str
-             expr-to-string-rules
+             expr-to-str-rules
              (logic-and
                (variable :x)
                (constant 1)
@@ -42,7 +42,7 @@
     )
   (testing "z -> y"
     (is (= (expr-to-str
-             expr-to-string-rules
+             expr-to-str-rules
              (logic-impl
                (variable :z)
                (variable :y)))
@@ -50,11 +50,11 @@
     )
   (testing "!(a -> b)"
     (is (= (expr-to-str
-             expr-to-string-rules
+             expr-to-str-rules
              (logic-not (logic-impl
                           (variable :a)
                           (variable :b))))
-           "(!(a -> b))"))
+           "!(a -> b)"))
     )
   )
 

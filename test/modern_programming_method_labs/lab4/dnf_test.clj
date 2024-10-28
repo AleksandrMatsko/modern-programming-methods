@@ -3,6 +3,30 @@
             [modern-programming-method-labs.lab4.dnf :refer :all]
             [modern-programming-method-labs.lab4.operations :refer :all]))
 
+(deftest test-combine-same-args
+  (testing  "a && (b && (c || (d && e)))"
+    (is (= (combine-same-args
+             (logic-and
+               (variable :a)
+               (logic-and
+                 (variable :b)
+                 (logic-or
+                   (variable :c)
+                   (logic-and
+                     (variable :d)
+                     (variable :e))))))
+           (list
+             (variable :a)
+             (variable :b)
+             (logic-or
+               (variable :c)
+               (logic-and
+                 (variable :d)
+                 (variable :e))))
+           ))
+
+    ))
+
 (deftest test-distributivity-law
   (testing "(x || y) && z"
     (is (= (distributivity-law

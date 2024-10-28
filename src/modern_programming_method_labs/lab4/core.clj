@@ -41,25 +41,25 @@
 
 (defn -main []
   (println (expr-to-str
-             (conj expr-to-string-rules {::eq logic-eq-to-str})
+             (conj expr-to-str-rules {::eq logic-eq-to-str})
              ; (x -> y) == 1
              (logic-eq (logic-impl (variable :x) (variable :y)) (constant 1))))
   (println (expr-to-str
-             expr-to-string-rules
+             expr-to-str-rules
              (logic-or
                (variable :x)
                (logic-or
                  (variable :y)
                  (variable :z)))))
   (println (expr-to-str
-             expr-to-string-rules
+             expr-to-str-rules
              ((convert-implications expr-constructors)
               ; (x -> y) -> (0 -> z) = !(!x || y) || (!0 || z)
               (logic-impl
                 (logic-impl (variable :x) (variable :y))
                 (logic-impl (constant 0) (variable :z))))))
   (println (expr-to-str
-             expr-to-string-rules
+             expr-to-str-rules
              (use-constant-laws
                ; (x && 0) || (y && 0)
                (logic-or
@@ -70,7 +70,7 @@
                    (variable :y)
                    (constant 0))))))
   (println (expr-to-str
-             expr-to-string-rules
+             expr-to-str-rules
              (dnf
                (convert-rules expr-constructors)
                ; x -> y
@@ -78,7 +78,7 @@
                  (variable :x)
                  (variable :y)))))
   (println (expr-to-str
-             expr-to-string-rules
+             expr-to-str-rules
              (dnf
                (convert-rules expr-constructors)
                ; (x && (x || y))
@@ -100,7 +100,7 @@
                                 (convert-implications constructors)
                                 (convert-eq constructors))]
     (println (expr-to-str
-               expr-to-string-rules
+               expr-to-str-rules
                (dnf
                  convert-rules-with-eq
                  (substitute-vals

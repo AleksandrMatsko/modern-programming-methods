@@ -102,10 +102,9 @@
   "Converts negation to string by using rules map and expr-to-str function"
   [rules-map expr]
   {:pre [(logic-not? expr)]}
-  (str "("
-       "!"
+  (str "!"
        (expr-to-str rules-map (first (args expr)))
-       ")")
+       )
   )
 
 ; disjunction expression
@@ -189,13 +188,16 @@
        ")"))
 
 (def expr-constructors
+  "Map of constructors, there are
+  keys: operation types (keywords) (example: ::and)
+  value: operation constructor (function) (example: logic-and)"
   (hash-map
     ::not logic-not
     ::or logic-or
     ::and logic-and
     ::impl logic-impl))
 
-(def expr-to-string-rules
+(def expr-to-str-rules
   "Map of rules for converting expression to string
   Example {::constant constant-to-str}, there ::constant is the type of expression and
   constant-to-str is a function that consumes rules-map and expression and returns string"
